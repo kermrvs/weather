@@ -2,7 +2,7 @@
   <table class="va-table va-table--striped va-table--clickable">
     <thead>
       <tr>
-        <th v-for="column in columns" :key="column.key">{{column.key}}</th>
+        <th v-for="column in columns" :key="column.key" @click="sortBy(column.key)" style="cursor: pointer">{{column.key}}</th>
       </tr>
     </thead>
     <tbody>
@@ -61,16 +61,37 @@ const columns = [
   }
 ]
 
-function sortBy(name:string) {
-  
-}
-
 function deleteCity(name:string){
   store.selectedCities = store.selectedCities.filter((value)=>{
     return value.name!==name;
   })
   state.selectedCities = store.selectedCities;
   store.updateDeletedCity(name);
+}
+
+function sortBy(key:string){
+  console.log(1)
+  switch (key) {
+    case 'Name': state.selectedCities.sort((a, b)=>{
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    }); break;
+    case 'Id':state.selectedCities.sort((a, b)=>{
+      return a.id - b.id
+    }); break;
+    case 'Min temperature': state.selectedCities.sort(function(a, b){
+      return a.min - b.min;
+    }); break;
+    case 'Max temperature':state.selectedCities.sort((a, b)=>{
+      return a.max - b.max;
+    }); break;
+    default:break;
+  }
 }
 </script>
 

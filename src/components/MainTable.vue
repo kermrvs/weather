@@ -2,7 +2,7 @@
   <table class="va-table va-table--striped va-table--clickable">
     <thead>
      <tr>
-       <th v-for="column in columns" :key="column.key">
+       <th v-for="column in columns" :key="column.key" @click="sortBy(column.key)" style="cursor: pointer">
          {{column.key}}
        </th>
      </tr>
@@ -88,6 +88,30 @@ async function selectCity(id:number,name:string,latitude:number,longitude:number
       color:'red',
       message:'Something problem!!!'
     })
+  }
+}
+
+function sortBy(key:string){
+  switch (key) {
+    case 'Name': state.cities.sort((a, b)=>{
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    }); break;
+    case 'Id':state.cities.sort((a, b)=>{
+      return a.id - b.id
+    }); break;
+    case 'Latitude': state.cities.sort(function(a, b){
+      return a.latitude - b.latitude;
+    }); break;
+    case 'Longitude':state.cities.sort((a, b)=>{
+      return a.longitude - b.longitude;
+    }); break;
+    default:break;
   }
 }
 

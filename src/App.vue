@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4>Select city</h4>
+    <h4>Select city from list and if you want you can set day</h4>
     <div>
       <va-date-picker v-model="value"></va-date-picker>
     </div>
